@@ -1,0 +1,61 @@
+object mainForm: TmainForm
+  Left = 342
+  Height = 570
+  Top = 31
+  Width = 635
+  Caption = '40 grafische algoritmes'
+  ClientHeight = 570
+  ClientWidth = 635
+  object pnlTop: TPanel
+    Left = 0
+    Height = 168
+    Top = 0
+    Width = 635
+    Align = alTop
+    ClientHeight = 168
+    ClientWidth = 635
+    TabOrder = 0
+    object btnDiaWeb: TButton
+      Left = 8
+      Height = 25
+      Top = 16
+      Width = 125
+      Caption = 'Diagonaal web'
+      OnClick = btnDiaWebClick
+      TabOrder = 0
+    end
+    object btnMoiree: TButton
+      Left = 8
+      Height = 25
+      Top = 57
+      Width = 125
+      Caption = 'Moiree effect'
+      OnClick = btnMoireeClick
+      TabOrder = 1
+    end
+    object btnDriehoeken: TButton
+      Left = 8
+      Height = 25
+      Top = 96
+      Width = 125
+      Caption = 'Driehoeken'
+      OnClick = btnDriehoekenClick
+      TabOrder = 2
+    end
+    object Memo1: TMemo
+      Left = 408
+      Height = 152
+      Top = 8
+      Width = 216
+      ScrollBars = ssAutoVertical
+      TabOrder = 3
+    end
+  end
+  object pbMain: TPaintBox
+    Left = 0
+    Height = 402
+    Top = 168
+    Width = 635
+    Align = alClient
+  end
+end

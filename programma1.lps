@@ -8,7 +8,7 @@
         <Filename Value="programma1.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="39"/>
       </Unit>
       <Unit>
         <Filename Value="main.pas"/>
@@ -17,9 +17,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="73"/>
-        <CursorPos X="21" Y="98"/>
-        <UsageCount Value="25"/>
+        <CursorPos X="30" Y="87"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\lazarusstable226\fpc\bin\x86_64-win64\fpc.exe" Date="1452690784"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -gw3 -gl -WG -l -vewnhibq -FiC:\Users\donwi\Documents\LazarusProjecten\40_Grafische_Programmas\lib\x86_64-win64 -FuC:\lazarusstable226\lazarus\lcl\units\x86_64-win64\win32 -FuC:\lazarusstable226\lazarus\lcl\units\x86_64-win64 -FuC:\lazarusstable226\lazarus\components\freetype\lib\x86_64-win64 -FuC:\lazarusstable226\lazarus\components\lazutils\lib\x86_64-win64 -FuC:\lazarusstable226\lazarus\packager\units\x86_64-win64 -FuC:\Users\donwi\Documents\LazarusProjecten\40_Grafische_Programmas\ -FUC:\Users\donwi\Documents\LazarusProjecten\40_Grafische_Programmas\lib\x86_64-win64\ -FEC:\Users\donwi\Documents\LazarusProjecten\40_Grafische_Programmas\ -oC:\Users\donwi\Documents\LazarusProjecten\40_Grafische_Programmas\programma1.exe -dLCL -dLCLwin32 programma1.lpr"/>
+</CONFIG>
