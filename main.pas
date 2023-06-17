@@ -17,7 +17,6 @@ type
     Label2: TLabel;
     Label3: TLabel;
     MainMenu1: TMainMenu;
-    Memo1: TMemo;
     MenuItem1: TMenuItem;
     miDiagNHoek: TMenuItem;
     miDiagWeb: TMenuItem;
@@ -56,7 +55,6 @@ var
   a, b, x, y: Array[1..3] of Integer;
 begin
   pbMain.Canvas.Clear;
-  Memo1.Lines.Clear;
   Label1.Visible:=False;
   Label2.Visible:=False;
   Label3.Visible:=False;
@@ -77,9 +75,7 @@ begin
     for j:=1 to 3 do
     begin
       x[j] := x0 + k * a[j];
-      Memo1.Lines.Add('x['+IntToStr(j)+']='+IntToStr(x[j]));
       y[j] := y0 + k * b[j];
-      Memo1.Lines.Add('y['+IntToStr(j)+']='+IntToStr(y[j]));
     end;
     pbMain.Canvas.MoveTo(x[1],y[1]);
     pbMain.Canvas.LineTo(x[2],y[2]);
@@ -96,7 +92,6 @@ var
   x, y: Array of Integer;
 begin
   pbMain.Canvas.Clear;
-  Memo1.Lines.Clear;
   Label1.Visible:=True;
   Label2.Visible:=True;
   Label3.Visible:=False;
@@ -132,7 +127,6 @@ var
   a, j: Integer;
 begin
   pbMain.Canvas.Clear;
-  Memo1.Lines.Clear;
   Label1.Visible:=False;
   Label2.Visible:=False;
   Label3.Visible:=False;
@@ -169,7 +163,6 @@ var
   a, b, i, j, n, y1, y2: Integer;
 begin
   pbMain.Canvas.Clear;
-  Memo1.Lines.Clear;
   Label1.Visible:=False;
   Label2.Visible:=False;
   Label3.Visible:=True;
@@ -201,7 +194,6 @@ var
   h, w, w1: real;
 begin
   pbMain.Canvas.Clear;
-  Memo1.Lines.Clear;
   Label1.Visible:=False;
   Label2.Visible:=False;
   Label3.Visible:=False;
