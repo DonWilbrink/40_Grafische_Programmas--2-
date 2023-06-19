@@ -26,14 +26,17 @@ type
     miMoiree: TMenuItem;
     miDriehoek: TMenuItem;
     miZeshoek: TMenuItem;
+    pnlIngeschreven: TPanel;
+    pnlDiagWeb: TPanel;
     pbMain: TPaintBox;
+    pnlDiagNHoek: TPanel;
     pnlTop: TPanel;
-    SpinEdit1: TSpinEdit;
-    SpinEdit2: TSpinEdit;
-    SpinEdit3: TSpinEdit;
-    SpinEdit4: TSpinEdit;
-    SpinEdit5: TSpinEdit;
-    SpinEdit6: TSpinEdit;
+    seBreed: TSpinEdit;
+    seHoog: TSpinEdit;
+    seHoek: TSpinEdit;
+    seK: TSpinEdit;
+    seN: TSpinEdit;
+    sePunt: TSpinEdit;
     procedure miDiagNHoekClick(Sender: TObject);
     procedure miDriehoekClick(Sender: TObject);
     procedure miIngeschrevenClick(Sender: TObject);
@@ -69,7 +72,7 @@ begin
   b[2] := 9;
   b[3] := -6;
   x0 := 0;
-  y0 := 139;
+  y0 := Trunc(pbMain.Height/3);
   k := 1;
   repeat
     for j:=1 to 3 do
@@ -82,7 +85,7 @@ begin
     pbMain.Canvas.LineTo(x[3],y[3]);
     pbMain.Canvas.LineTo(x[1],y[1]);
     k := k + 1;
-  until k >= 22;
+  until k >= 35;
 end;
 
 procedure TmainForm.miIngeschrevenClick(Sender: TObject);
@@ -92,15 +95,12 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  Label4.Visible:=True;
-  Label5.Visible:=True;
-  SpinEdit5.Visible:=True;
-  SpinEdit6.Visible:=True;
+  pnlIngeschreven.Visible:=True;
   h := pbMain.Height-40;
   x[1] := 40; x[2] := h; x[3] := h; x[4] := 40; x[5] := 40;
   y[1] := 40; y[2] := 40; y[3] := h; y[4] := h; y[5] := 40;
-  k := SpinEdit5.Value;
-  n1 := SpinEdit6.Value;
+  k := seK.Value;
+  n1 := seN.Value;
   for n := 1 to n1 do
   begin
     pbMain.Canvas.MoveTo(x[1],y[1]);
@@ -133,17 +133,13 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  Label1.Visible:=True;
-  Label2.Visible:=True;
-  SpinEdit1.Visible:=True;
-  SpinEdit2.Visible:=True;
-  SpinEdit3.Visible:=True;
-  a := SpinEdit1.Value;
-  b := SpinEdit2.Value;
-  n := SpinEdit3.Value;
+  pnlDiagNHoek.Visible:=True;
+  a := seBreed.Value;
+  b := seHoog.Value;
+  n := seHoek.Value;
   SetLength(x,n);
   SetLength(y,n);
-  u := 300; v := 200;
+  u := Trunc(pbMain.Width/2); v := Trunc(pbMain.Height/2);
   w := (360/n)*pi/180;
   for j := 1 to n do
   begin
@@ -168,7 +164,7 @@ begin
   pbMain.Canvas.Clear;
   seVisible;
   h := pbMain.Height-10;
-  for j := 0 to 50 do
+  for j := 0 to Trunc(h/10) do
   begin
     a := j * 10;
     with pbMain.Canvas do
@@ -179,7 +175,7 @@ begin
       LineTo(h,a);
     end;
   end;
-  for j := 0 to 50 do
+  for j := 0 to Trunc(h/10) do
   begin
     a := j * 10;
     with pbMain.Canvas do
@@ -198,13 +194,12 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  Label3.Visible:=True;
-  SpinEdit4.Visible:=True;
+  pnlDiagWeb.Visible:=True;
   y1 := 0;
   y2 := pbMain.Height-5;
   a := 0;
   b := 0;
-  n := SpinEdit4.Value;
+  n := sePunt.Value;
   for i := 0 to n-1 do
   begin
     a := i * 40;
@@ -225,9 +220,9 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  u := 200;
-  v := 200;
-  r := 200;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  r := v;
   w := 60*pi/180;
   for j := 1 to 7 do
   begin
@@ -259,17 +254,9 @@ end;
 
 procedure TmainForm.seVisible;
 begin
-  Label1.Visible:=False;
-  Label2.Visible:=False;
-  Label3.Visible:=False;
-  Label4.Visible:=False;
-  Label5.Visible:=False;
-  SpinEdit1.Visible:=False;
-  SpinEdit2.Visible:=False;
-  SpinEdit3.Visible:=False;
-  SpinEdit4.Visible:=False;
-  SpinEdit5.Visible:=False;
-  SpinEdit6.Visible:=False;
+  pnlDiagNHoek.Visible:=False;
+  pnlDiagWeb.Visible:=False;
+  pnlIngeschreven.Visible:=False;
 end;
 
 end.
