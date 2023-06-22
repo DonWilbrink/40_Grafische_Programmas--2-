@@ -1,16 +1,16 @@
 object mainForm: TmainForm
   Left = 342
-  Height = 785
+  Height = 807
   Top = 31
   Width = 794
   Caption = '40 grafische algoritmes'
-  ClientHeight = 785
+  ClientHeight = 807
   ClientWidth = 794
   DesignTimePPI = 120
   Menu = MainMenu1
   object pbMain: TPaintBox
     Left = 0
-    Height = 615
+    Height = 637
     Top = 170
     Width = 794
     Align = alClient
@@ -171,6 +171,118 @@ object mainForm: TmainForm
         ParentColor = False
       end
     end
+    object pnlContinuFunctie: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 792
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 792
+      Color = clGradientActiveCaption
+      ParentColor = False
+      TabOrder = 3
+      Visible = False
+      object seLinker: TSpinEdit
+        Left = 32
+        Height = 28
+        Top = 48
+        Width = 63
+        MaxValue = 20
+        MinValue = -30
+        OnChange = miContinuFunctieClick
+        TabOrder = 0
+        Value = -15
+      end
+      object seRechter: TSpinEdit
+        Left = 32
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = 30
+        MinValue = -20
+        OnChange = miContinuFunctieClick
+        TabOrder = 1
+        Value = 20
+      end
+      object Label6: TLabel
+        Left = 32
+        Height = 20
+        Top = 10
+        Width = 135
+        Caption = 'Linker interval grens:'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 32
+        Height = 20
+        Top = 91
+        Width = 146
+        Caption = 'Rechter interval grens:'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 248
+        Height = 20
+        Top = 10
+        Width = 124
+        Caption = 'Grootste Y-waarde'
+        ParentColor = False
+      end
+      object Label9: TLabel
+        Left = 248
+        Height = 20
+        Top = 96
+        Width = 119
+        Caption = 'Kleinste Y-waarde'
+        ParentColor = False
+      end
+      object seGrootsteY: TSpinEdit
+        Left = 248
+        Height = 28
+        Top = 48
+        Width = 63
+        MaxValue = 20
+        OnChange = miContinuFunctieClick
+        TabOrder = 2
+      end
+      object seKleinsteY: TSpinEdit
+        Left = 248
+        Height = 28
+        Top = 120
+        Width = 63
+        MinValue = -20
+        OnChange = miContinuFunctieClick
+        TabOrder = 3
+      end
+      object rgFormule: TRadioGroup
+        Left = 544
+        Height = 131
+        Top = 10
+        Width = 231
+        AutoFill = True
+        Caption = 'Formule'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 106
+        ClientWidth = 227
+        ItemIndex = 0
+        Items.Strings = (
+          '1 :  y=Exp(-0.1*x)*Cos(x)'
+          '2 :  y=Sin(x)'
+          '3 : y=x*x'
+          '4 : y=Exp(x)'
+          '5 : y=x*x*x-2*x*x-x'
+        )
+        OnClick = miContinuFunctieClick
+        TabOrder = 4
+      end
+    end
   end
   object MainMenu1: TMainMenu
     Left = 258
@@ -200,6 +312,10 @@ object mainForm: TmainForm
       object miIngeschreven: TMenuItem
         Caption = 'Ingeschreven vierkanten'
         OnClick = miIngeschrevenClick
+      end
+      object miContinuFunctie: TMenuItem
+        Caption = 'Grafiek van een continu functie'
+        OnClick = miContinuFunctieClick
       end
     end
   end

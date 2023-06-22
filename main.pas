@@ -18,25 +18,37 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    miContinuFunctie: TMenuItem;
     miIngeschreven: TMenuItem;
     miDiagNHoek: TMenuItem;
     miDiagWeb: TMenuItem;
     miMoiree: TMenuItem;
     miDriehoek: TMenuItem;
     miZeshoek: TMenuItem;
+    pnlContinuFunctie: TPanel;
     pnlIngeschreven: TPanel;
     pnlDiagWeb: TPanel;
     pbMain: TPaintBox;
     pnlDiagNHoek: TPanel;
     pnlTop: TPanel;
+    rgFormule: TRadioGroup;
     seBreed: TSpinEdit;
     seHoog: TSpinEdit;
     seHoek: TSpinEdit;
     seK: TSpinEdit;
     seN: TSpinEdit;
     sePunt: TSpinEdit;
+    seLinker: TSpinEdit;
+    seRechter: TSpinEdit;
+    seGrootsteY: TSpinEdit;
+    seKleinsteY: TSpinEdit;
+    procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
     procedure miDriehoekClick(Sender: TObject);
     procedure miIngeschrevenClick(Sender: TObject);
@@ -45,6 +57,7 @@ type
     procedure miZeshoekClick(Sender: TObject);
   private
     procedure seVisible;
+    procedure Formule(i: Integer; x: Double; var y: Double);
   public
 
   end;
@@ -157,6 +170,83 @@ begin
   end;
 end;
 
+procedure TmainForm.miContinuFunctieClick(Sender: TObject);
+var
+  a, b, c, i, xx, yy, x1, x2, y1, y2: Integer;
+  x, y, hp, lp, dx, kx, ky: Double;
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  pnlContinuFunctie.Visible:=True;
+  a := seLinker.Value;
+  b := seRechter.Value;
+  if a>b then
+  begin
+    c := a;
+    a := b;
+    b := c;
+  end;
+  hp := -100000;
+  lp := 100000;
+  dx := (b-a)/256;
+  x := a;
+  i := rgFormule.ItemIndex;
+  repeat
+    Formule(i,x,y);
+    if y>hp then hp := y;
+    if y<lp then lp := y;
+    x := x+dx;
+  until x=b;
+  Label8.Caption := 'Grootste y-waarde: ' + hp.ToString;
+  Label9.Caption := 'Kleinste y-waarde: ' + lp.ToString;
+  seGrootsteY.Value := Trunc(hp)+1;
+  seKleinsteY.Value := Trunc(lp)-1;
+  hp := seGrootsteY.Value;
+  lp := seKleinsteY.Value;
+  if a=b then b := b+1;
+  kx := (pbMain.Width)/(b-a);
+  ky := (pbMain.Height)/(hp-lp);
+  x := a;
+  repeat
+    Formule(i,x,y);
+    xx := Trunc(kx*(x-a));
+    yy := Trunc(ky*(hp-y));
+    if x=a then
+    begin
+      x1 := xx;
+      y1 := yy;
+    end
+    else
+    begin
+      x2 := xx;
+      y2 := yy;
+      pbMain.Canvas.MoveTo(x1,y1);
+      pbMain.Canvas.LineTo(x2,y2);
+      x1 := x2;
+      y1 := y2;
+    end;
+    x := x+dx;
+  until x=b;
+  x1 := 0;
+  y1 := Trunc(ky*hp);
+  x2 := pbMain.Width;
+  y2 := y1;
+  if (y1 >= 0) and (y1 <= pbMain.Height) then
+  begin
+    pbMain.Canvas.MoveTo(x1,y1);
+    pbMain.Canvas.LineTo(x2,y2);
+  end;
+  x1 := Trunc(kx*-a);
+  y1 := 0;
+  x2 := x1;
+  y2 := pbMain.Height;
+  if (x1 >= 0) and (x1 <= pbMain.Width) then
+  begin
+    pbMain.Canvas.MoveTo(x1,y1);
+    pbMain.Canvas.LineTo(x2,y2);
+  end;
+end;
+
 procedure TmainForm.miMoireeClick(Sender: TObject);
 var
   a, h, j: Integer;
@@ -257,6 +347,18 @@ begin
   pnlDiagNHoek.Visible:=False;
   pnlDiagWeb.Visible:=False;
   pnlIngeschreven.Visible:=False;
+  pnlContinuFunctie.Visible:=False;
+end;
+
+procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
+begin
+  case i of
+    0:  y := Exp(-0.1*x)*Cos(x);
+    1:  y := Sin(x);
+    2:  y := x*x;
+    3:  y := Exp(x);
+    4:  y := x*x*x-2*x*x-x
+  end;
 end;
 
 end.
