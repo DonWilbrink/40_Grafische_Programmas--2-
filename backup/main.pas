@@ -24,6 +24,7 @@ type
     Label9: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    miSinuskrommen: TMenuItem;
     miContinuFunctie: TMenuItem;
     miIngeschreven: TMenuItem;
     miDiagNHoek: TMenuItem;
@@ -54,6 +55,7 @@ type
     procedure miIngeschrevenClick(Sender: TObject);
     procedure miMoireeClick(Sender: TObject);
     procedure miDiagWebClick(Sender: TObject);
+    procedure miSinuskrommenClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
     procedure seVisible;
@@ -302,6 +304,42 @@ begin
   end;
 end;
 
+procedure TmainForm.miSinuskrommenClick(Sender: TObject);
+var
+  f, j, k, n, v, x1, x2, y, y1, y2: Integer;
+  c, p, x: Double;
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  v := 200;
+  k := 200;
+  p := pi/9;
+  c := 2*pi/(pbMain.Width-50);
+  for n := 0 to 9 do
+  begin
+    j := 0;
+    repeat
+      x := j*c;
+      y := Trunc(v-k*Sin(x+n*p));
+      if j=0 then
+      begin
+        x1 := j;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := j;
+        y2 := y;
+        pbMain.Canvas.MoveTo(x1,y1);
+        pbMain.Canvas.LineTo(x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+      j := j + 5;
+    until  j>=pbMain.Width-50;
+  end;
+end;
+
 procedure TmainForm.miZeshoekClick(Sender: TObject);
 var
   x, y, a, b: Array[1..7] of Integer;
@@ -353,11 +391,11 @@ end;
 procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
 begin
   case i of
-    1:  y := Exp(-0.1*x)*Cos(x);
-    2:  y := Sin(x);
-    3:  y := x*x;
-    4:  y := Exp(x);
-    5:  y := x*x*x-2*x*x-x
+    0:  y := Exp(-0.1*x)*Cos(x);
+    1:  y := Sin(x);
+    2:  y := x*x;
+    3:  y := Exp(x);
+    4:  y := x*x*x-2*x*x-x
   end;
 end;
 

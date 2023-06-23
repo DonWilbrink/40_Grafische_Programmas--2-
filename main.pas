@@ -24,6 +24,7 @@ type
     Label9: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    miSinuskrommen: TMenuItem;
     miContinuFunctie: TMenuItem;
     miIngeschreven: TMenuItem;
     miDiagNHoek: TMenuItem;
@@ -54,6 +55,7 @@ type
     procedure miIngeschrevenClick(Sender: TObject);
     procedure miMoireeClick(Sender: TObject);
     procedure miDiagWebClick(Sender: TObject);
+    procedure miSinuskrommenClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
     procedure seVisible;
@@ -299,6 +301,42 @@ begin
       pbMain.Canvas.MoveTo(a,y1);
       pbMain.Canvas.LineTo(b,y2);
     end;
+  end;
+end;
+
+procedure TmainForm.miSinuskrommenClick(Sender: TObject);
+var
+  f, j, k, n, v, x1, x2, y, y1, y2: Integer;
+  c, p, x: Double;
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  v := 300;
+  k := 200;
+  p := pi/9;
+  c := 2*pi/pbMain.Width;
+  for n := 0 to 9 do
+  begin
+    j := 0;
+    repeat
+      x := j*c;
+      y := Trunc(v-k*Sin(x+n*p));
+      if j=0 then
+      begin
+        x1 := j;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := j;
+        y2 := y;
+        pbMain.Canvas.MoveTo(x1,y1);
+        pbMain.Canvas.LineTo(x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+      j := j + 5;
+    until  j>=pbMain.Width;
   end;
 end;
 

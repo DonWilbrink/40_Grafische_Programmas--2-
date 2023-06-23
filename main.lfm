@@ -1,16 +1,16 @@
 object mainForm: TmainForm
   Left = 342
-  Height = 807
+  Height = 785
   Top = 31
   Width = 794
   Caption = '40 grafische algoritmes'
-  ClientHeight = 807
+  ClientHeight = 785
   ClientWidth = 794
   DesignTimePPI = 120
   Menu = MainMenu1
   object pbMain: TPaintBox
     Left = 0
-    Height = 637
+    Height = 615
     Top = 170
     Width = 794
     Align = alClient
@@ -316,6 +316,10 @@ object mainForm: TmainForm
       object miContinuFunctie: TMenuItem
         Caption = 'Grafiek van een continu functie'
         OnClick = miContinuFunctieClick
+      end
+      object miSinuskrommen: TMenuItem
+        Caption = 'Sinuskrommen'
+        OnClick = miSinuskrommenClick
       end
     end
   end
