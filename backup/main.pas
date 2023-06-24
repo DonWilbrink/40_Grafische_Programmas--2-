@@ -24,6 +24,7 @@ type
     Label9: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    miParaboolstelsel: TMenuItem;
     miSinuskrommen: TMenuItem;
     miContinuFunctie: TMenuItem;
     miIngeschreven: TMenuItem;
@@ -55,6 +56,7 @@ type
     procedure miIngeschrevenClick(Sender: TObject);
     procedure miMoireeClick(Sender: TObject);
     procedure miDiagWebClick(Sender: TObject);
+    procedure miParaboolstelselClick(Sender: TObject);
     procedure miSinuskrommenClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
@@ -304,6 +306,43 @@ begin
   end;
 end;
 
+procedure TmainForm.miParaboolstelselClick(Sender: TObject);
+var
+  k, u, v, x, xx, x1, x2, y, y1, y2: Integer;
+  yy: Double;
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  //u := 128;
+  //v := 96;
+  k := -v;
+  repeat
+    x := -110;
+    repeat
+      xx := Trunc(u+x);
+      y:= Trunc(-k*x*x/6400+k);
+      y := v-y;
+      if x = -110 then
+      begin
+        x1 := xx;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := xx;
+        y2 := y;
+        pbMain.Canvas.Line(x1,y1,x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+      x := x + 5;
+    until x >= 110;
+    k := k + 10;
+  until k>=v ;
+end;
+
 procedure TmainForm.miSinuskrommenClick(Sender: TObject);
 var
   f, j, k, n, v, x1, x2, y, y1, y2: Integer;
@@ -311,10 +350,10 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  v := 200;
+  v := 300;
   k := 200;
   p := pi/9;
-  c := 2*pi/(pbMain.Width-50);
+  c := 2*pi/pbMain.Width;
   for n := 0 to 9 do
   begin
     j := 0;
@@ -336,7 +375,7 @@ begin
         y1 := y2;
       end;
       j := j + 5;
-    until  j>=pbMain.Width-50;
+    until  j>=pbMain.Width;
   end;
 end;
 
@@ -348,8 +387,8 @@ var
 begin
   pbMain.Canvas.Clear;
   seVisible;
-  u := Trunc(pbMain.Width/2);
-  v := Trunc(pbMain.Height/2);
+  u := pbMain.Width div 2;
+  v := pbMain.Height div 2;
   r := v;
   w := 60*pi/180;
   for j := 1 to 7 do
