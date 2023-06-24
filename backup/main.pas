@@ -24,6 +24,7 @@ type
     Label9: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    miOppKromme: TMenuItem;
     miParaboolstelsel: TMenuItem;
     miSinuskrommen: TMenuItem;
     miContinuFunctie: TMenuItem;
@@ -56,12 +57,14 @@ type
     procedure miIngeschrevenClick(Sender: TObject);
     procedure miMoireeClick(Sender: TObject);
     procedure miDiagWebClick(Sender: TObject);
+    procedure miOppKrommeClick(Sender: TObject);
     procedure miParaboolstelselClick(Sender: TObject);
     procedure miSinuskrommenClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
     procedure seVisible;
     procedure Formule(i: Integer; x: Double; var y: Double);
+    function OppKromme(x: Double): Double;
   public
 
   end;
@@ -306,6 +309,26 @@ begin
   end;
 end;
 
+procedure TmainForm.miOppKrommeClick(Sender: TObject);
+var
+  j, k, v, y, yy: Integer;
+  c, x: Double;
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  v := pbMain.Width div 2;
+  k := pbMain.Height div 2;
+  c := 2*pi/pbMain.Height;
+  for j := 0 to pbMain.Height do
+  begin
+    x := j*c-pi;
+    //yy := Trunc(Cos(x) - (Cos(3*x)/3) + (Cos(5*x)/5) - (Cos(7*x)/7));
+    y := Trunc(v - k * OppKromme(x));
+    pbMain.Canvas.MoveTo(j,v);
+    pbMain.Canvas.LineTo(j,y);
+  end;
+end;
+
 procedure TmainForm.miParaboolstelselClick(Sender: TObject);
 var
   k, u, v, x, xx, x1, x2, y, y1, y2: Integer;
@@ -321,7 +344,7 @@ begin
   repeat
     x := -110;
     repeat
-      xx := Trunc(u+x);
+      xx := Trunc(u+x*4);
       y:= Trunc(-k*x*x/6400+k);
       y := v-y;
       if x = -110 then
@@ -436,6 +459,11 @@ begin
     3:  y := Exp(x);
     4:  y := x*x*x-2*x*x-x
   end;
+end;
+
+function TmainForm.OppKromme(x: Double): Double;
+begin
+  Result := Cos(x) - Cos(3*x)/3 + Cos(5*x)/5 - Cos(7*x)/7;
 end;
 
 end.

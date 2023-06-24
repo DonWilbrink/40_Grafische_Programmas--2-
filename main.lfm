@@ -1,16 +1,16 @@
 object mainForm: TmainForm
   Left = 342
-  Height = 824
+  Height = 950
   Top = 31
   Width = 794
   Caption = '40 grafische algoritmes'
-  ClientHeight = 824
+  ClientHeight = 950
   ClientWidth = 794
   DesignTimePPI = 120
   Menu = MainMenu1
   object pbMain: TPaintBox
     Left = 0
-    Height = 654
+    Height = 780
     Top = 170
     Width = 794
     Align = alClient
@@ -324,6 +324,10 @@ object mainForm: TmainForm
       object miParaboolstelsel: TMenuItem
         Caption = 'Paraboolstelsel'
         OnClick = miParaboolstelselClick
+      end
+      object miOppKromme: TMenuItem
+        Caption = 'Oppervlakte onder kromme'
+        OnClick = miOppKrommeClick
       end
     end
   end
