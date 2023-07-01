@@ -29,6 +29,7 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    miBloemen2: TMenuItem;
     miBloemen: TMenuItem;
     miWillekeurigeFunctie: TMenuItem;
     miOppKromme: TMenuItem;
@@ -65,6 +66,7 @@ type
     seRechtergrensX: TSpinEdit;
     seBovengrensY: TSpinEdit;
     seOndergrensY: TSpinEdit;
+    procedure miBloemen2Click(Sender: TObject);
     procedure miBloemenClick(Sender: TObject);
     procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
@@ -78,10 +80,12 @@ type
     procedure miWillekeurigeFunctieClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
-    procedure seVisible;
+    procedure frmClear;
     procedure Formule(i: Integer; x: Double; var y: Double);
     function FormuleBloem(I: Integer; p: Double): Double;
+    function FormuleBloem2(i: Integer; p: Double): Double;
     procedure Teken(I: Integer);
+    procedure Teken2(i: Integer);
     function OppKromme(x: Double): Double;
     procedure Swap(a: Integer; b: Integer);
     procedure fn(x: Double; lp: Integer; hp: Integer; var y: Double; var fz: Integer);
@@ -103,8 +107,7 @@ var
   j, k, x0, y0: Integer;
   a, b, x, y: Array[1..3] of Integer;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   a[1] := 6;
   a[2] := 20;
   a[3] := 12;
@@ -133,8 +136,7 @@ var
   h, j, k, n, n1: Integer;
   a, b, x, y: Array[1..5] of Integer;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlIngeschreven.Visible:=True;
   h := pbMain.Height-40;
   x[1] := 40; x[2] := h; x[3] := h; x[4] := 40; x[5] := 40;
@@ -171,8 +173,7 @@ var
   w, w1: real;
   x, y: Array of Integer;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlDiagNHoek.Visible:=True;
   a := seBreed.Value;
   b := seHoog.Value;
@@ -202,8 +203,7 @@ var
   a, b, c, i, xx, yy, x1, x2, y1, y2: Integer;
   x, y, hp, lp, dx, kx, ky: Double;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlContinuFunctie.Visible:=True;
   a := seLinker.Value;
   b := seRechter.Value;
@@ -277,12 +277,19 @@ begin
   Teken(I);
 end;
 
+procedure TmainForm.miBloemen2Click(Sender: TObject);
+var
+  i: Integer;
+begin
+  i := 1;
+  Teken2(i);
+end;
+
 procedure TmainForm.miMoireeClick(Sender: TObject);
 var
   a, h, j: Integer;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   h := pbMain.Height-10;
   for j := 0 to Trunc(h/10) do
   begin
@@ -312,8 +319,7 @@ procedure TmainForm.miDiagWebClick(Sender: TObject);
 var
   a, b, i, j, n, y1, y2: Integer;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlDiagWeb.Visible:=True;
   y1 := 0;
   y2 := pbMain.Height-5;
@@ -337,8 +343,7 @@ var
   j, k, v, y, yy: Integer;
   c, x: Double;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   v := pbMain.Width div 2;
   k := pbMain.Height div 2;
   c := 2*pi/pbMain.Height;
@@ -357,8 +362,7 @@ var
   k, u, v, x, xx, x1, x2, y, y1, y2: Integer;
   yy: Double;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   u := Trunc(pbMain.Width/2);
   v := Trunc(pbMain.Height/2);
   //u := 128;
@@ -394,8 +398,7 @@ var
   f, j, k, n, v, x1, x2, y, y1, y2: Integer;
   c, p, x: Double;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   v := 300;
   k := 200;
   p := pi/9;
@@ -430,8 +433,7 @@ var
   a, b, ch, cw, fa, fz, hp, lp, x1, x2, y1, y2: Integer;
   dx, kx, ky, x, y: Double;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlWillekFunc.Visible:=True;
   ch := pbMain.Height;
   cw := pbMain.Width;
@@ -491,8 +493,7 @@ var
   u, v, r, j, k, n: Integer;
   w, w1: real;
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   u := pbMain.Width div 2;
   v := pbMain.Height div 2;
   r := v;
@@ -525,13 +526,15 @@ begin
   end;
 end;
 
-procedure TmainForm.seVisible;
+procedure TmainForm.frmClear;
 begin
+  pbMain.Canvas.Clear;
   pnlDiagNHoek.Visible:=False;
   pnlDiagWeb.Visible:=False;
   pnlIngeschreven.Visible:=False;
   pnlContinuFunctie.Visible:=False;
   pnlWillekFunc.Visible:=False;
+  pnlBloem.Visible:=False;
 end;
 
 procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
@@ -548,14 +551,22 @@ end;
 function TmainForm.FormuleBloem(I: Integer; p: Double): Double;
 begin
   Case I of
-  1 : Result := Cos(4*P);
-  2 : Result := Cos(5*P);
-  3 : Result := Cos(4 * Sin(5 * P));
-  4 : Result := Sin(4 * Cos(5 * P));
-  5 : Result := Cos(3 * Tan(5 * P));
-  6 : Result := Sin(3 * Tan(5 * P));
-  7 : Result := Sin(4*P);
-  8 : Result := Sin(5*P);
+  1 : Result := Cos(4 * p);
+  2 : Result := Cos(5 * p);
+  3 : Result := Cos(4 * Sin(5 * p));
+  4 : Result := Sin(4 * Cos(5 * p));
+  5 : Result := Cos(3 * Tan(5 * p));
+  6 : Result := Sin(3 * Tan(5 * p));
+  7 : Result := Sin(4 * p);
+  8 : Result := Sin(5 * p);
+  9 : Result := Sin(5 * Cos(2 * Sin(3 * Cos(4 * p))));
+  end;
+end;
+
+function TmainForm.FormuleBloem2(i: Integer; p: Double): Double;
+begin
+  case i of
+    1 : Result := Cos(4 * Sin(2 * p));
   end;
 end;
 
@@ -565,12 +576,11 @@ var
   K, U, V, W, X1, X2, Y1, Y2: Integer;
 
 begin
-  pbMain.Canvas.Clear;
-  seVisible;
+  frmClear;
   pnlBloem.Visible:=True;
   U := Trunc(pbMain.Width/2);
   V := Trunc(pbMain.Height/2);
-  K := 320;
+  K := V;
   RD := Pi/180;
   P := 0;
   R := FormuleBloem(I,P);
@@ -588,6 +598,45 @@ begin
     Y1 := Y2;
     W := W + 1;
   end;
+end;
+
+procedure TmainForm.Teken2(i: Integer);
+var
+  k, v, u, w, x, x1, x2, y, y1, y2: Integer;
+  rd, p, r: Double;
+begin
+  frmClear;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  //u := 200;
+  //v := 200;
+  rd := pi/180;
+  w := 0;
+  k := 2;
+  repeat
+    repeat
+      p := w * rd;
+      r := k * FormuleBloem2(i, p);
+      x := Trunc(u + k * r * Cos(p));
+      y := Trunc(v - k * r * Sin(p));
+      if p = 0 then
+      begin
+        x1 := x;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := x;
+        y2 := y;
+        pbMain.Canvas.Line(x1,y1,x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+      w := w + 1;
+    until w >= 360;
+    w := 0;
+    k := k + 2;
+  until k >= 20;
 end;
 
 function TmainForm.OppKromme(x: Double): Double;
