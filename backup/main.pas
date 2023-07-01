@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  Menus, Spin;
+  Menus, Spin, Math;
 
 type
 
@@ -29,6 +29,7 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    miBloemen: TMenuItem;
     miWillekeurigeFunctie: TMenuItem;
     miOppKromme: TMenuItem;
     miParaboolstelsel: TMenuItem;
@@ -40,6 +41,7 @@ type
     miMoiree: TMenuItem;
     miDriehoek: TMenuItem;
     miZeshoek: TMenuItem;
+    pnlBloem: TPanel;
     pnlWillekFunc: TPanel;
     pnlContinuFunctie: TPanel;
     pnlIngeschreven: TPanel;
@@ -47,6 +49,7 @@ type
     pbMain: TPaintBox;
     pnlDiagNHoek: TPanel;
     pnlTop: TPanel;
+    rgFormuleBloem: TRadioGroup;
     rgFormule: TRadioGroup;
     seBreed: TSpinEdit;
     seHoog: TSpinEdit;
@@ -62,6 +65,7 @@ type
     seRechtergrensX: TSpinEdit;
     seBovengrensY: TSpinEdit;
     seOndergrensY: TSpinEdit;
+    procedure miBloemenClick(Sender: TObject);
     procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
     procedure miDriehoekClick(Sender: TObject);
@@ -76,6 +80,8 @@ type
   private
     procedure seVisible;
     procedure Formule(i: Integer; x: Double; var y: Double);
+    function FormuleBloem(I: Integer; p: Double): Double;
+    procedure Teken(I: Integer);
     function OppKromme(x: Double): Double;
     procedure Swap(a: Integer; b: Integer);
     procedure fn(x: Double; lp: Integer; hp: Integer; var y: Double; var fz: Integer);
@@ -261,6 +267,14 @@ begin
     pbMain.Canvas.MoveTo(x1,y1);
     pbMain.Canvas.LineTo(x2,y2);
   end;
+end;
+
+procedure TmainForm.miBloemenClick(Sender: TObject);
+var
+  I : Integer;
+begin
+  I := rgFormuleBloem.ItemIndex + 1;
+  Teken(I);
 end;
 
 procedure TmainForm.miMoireeClick(Sender: TObject);
@@ -475,7 +489,7 @@ procedure TmainForm.miZeshoekClick(Sender: TObject);
 var
   x, y, a, b: Array[1..7] of Integer;
   u, v, r, j, k, n: Integer;
-  h, w, w1: real;
+  w, w1: real;
 begin
   pbMain.Canvas.Clear;
   seVisible;
@@ -528,6 +542,51 @@ begin
     2:  y := x*x;
     3:  y := Exp(x);
     4:  y := x*x*x-2*x*x-x
+  end;
+end;
+
+function TmainForm.FormuleBloem(I: Integer; p: Double): Double;
+begin
+  Case I of
+  1 : Result := Cos(4*P);
+  2 : Result := Cos(5*P);
+  3 : Result := Cos(4 * Sin(5 * P));
+  4 : Result := Sin(4 * Cos(5 * P));
+  5 : Result := Cos(3 * Tan(5 * P));
+  6 : Result := Sin(3 * Tan(5 * P));
+  7 : Result := Sin(4*P);
+  8 : Result := Sin(5*P);
+  end;
+end;
+
+procedure TmainForm.Teken(I: Integer);
+var
+  RD, P, R: Single;
+  K, U, V, W, X1, X2, Y1, Y2: Integer;
+
+begin
+  pbMain.Canvas.Clear;
+  seVisible;
+  pnlBloem.Visible:=True;
+  U := Trunc(pbMain.Width/2);
+  V := Trunc(pbMain.Height/2);
+  K := 320;
+  RD := Pi/180;
+  P := 0;
+  R := FormuleBloem(I,P);
+  X1 := Trunc(U + K * R * Cos(P));
+  Y1 := Trunc(V - K * R * Sin(P));
+  W := 1;
+  while W <= 360 do
+  begin
+    P := W * RD;
+    R := FormuleBloem(I,P);
+    X2 := Trunc(U + K * R * Cos(P));
+    Y2 := Trunc(V - K * R * Sin(P));
+    pbMain.Canvas.Line(X1,Y1,X2,Y2);
+    X1 := X2;
+    Y1 := Y2;
+    W := W + 1;
   end;
 end;
 
