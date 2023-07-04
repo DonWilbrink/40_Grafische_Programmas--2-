@@ -469,6 +469,10 @@ object mainForm: TmainForm
         Caption = 'Bloemen2'
         OnClick = miBloemen2Click
       end
+      object miBloemen3: TMenuItem
+        Caption = 'Bloemen3'
+        OnClick = miBloemen3Click
+      end
     end
   end
 end

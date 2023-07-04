@@ -29,6 +29,7 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    miBloemen3: TMenuItem;
     miBloemen2: TMenuItem;
     miBloemen: TMenuItem;
     miWillekeurigeFunctie: TMenuItem;
@@ -67,6 +68,7 @@ type
     seBovengrensY: TSpinEdit;
     seOndergrensY: TSpinEdit;
     procedure miBloemen2Click(Sender: TObject);
+    procedure miBloemen3Click(Sender: TObject);
     procedure miBloemenClick(Sender: TObject);
     procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
@@ -83,9 +85,10 @@ type
     procedure frmClear;
     procedure Formule(i: Integer; x: Double; var y: Double);
     function FormuleBloem(I: Integer; p: Double): Double;
-    function FormuleBloem2(i: Integer; p: Double): Double;
+    function FormuleBloem2(i: Integer; k: Integer; p: Double): Double;
     procedure Teken(I: Integer);
     procedure Teken2(i: Integer);
+    procedure Teken3(i: Integer);
     function OppKromme(x: Double): Double;
     procedure Swap(a: Integer; b: Integer);
     procedure fn(x: Double; lp: Integer; hp: Integer; var y: Double; var fz: Integer);
@@ -283,6 +286,14 @@ var
 begin
   i := 1;
   Teken2(i);
+end;
+
+procedure TmainForm.miBloemen3Click(Sender: TObject);
+var
+  i: Integer;
+begin
+  i := 2;
+  Teken3(i);
 end;
 
 procedure TmainForm.miMoireeClick(Sender: TObject);
@@ -563,10 +574,11 @@ begin
   end;
 end;
 
-function TmainForm.FormuleBloem2(i: Integer; p: Double): Double;
+function TmainForm.FormuleBloem2(i: Integer; k: Integer; p: Double): Double;
 begin
   case i of
-    1 : Result := Cos(4 * Sin(2 * p));
+    1 : Result := k * Cos(4 * Sin(2 * p));
+    2 : Result := Trunc(pbMain.Height/3) + 2*k * Sin(4 * p);
   end;
 end;
 
@@ -616,7 +628,7 @@ begin
   repeat
     repeat
       p := w * rd;
-      r := k * FormuleBloem2(i, p);
+      r := FormuleBloem2(i, k, p);
       x := Trunc(u + k * r * Cos(p));
       y := Trunc(v - k * r * Sin(p));
       if p = 0 then
@@ -637,6 +649,41 @@ begin
     w := 0;
     k := k + 1;
   until k >= 20;
+end;
+
+procedure TmainForm.Teken3(i: Integer);
+var
+  k, u, v, w, x, x1, x2, y, y1, y2: Integer;
+  p, r, rd: Double;
+begin
+  frmClear;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  rd := pi/180;
+  k := -60;
+  repeat
+    for w := 0 to 360 do
+    begin
+      p := w * rd;
+      r := FormuleBloem2(i, k, p);
+      x := Trunc(u + r * Cos(p));
+      y := Trunc(v - r * Sin(p));
+      if p = 0 then
+      begin
+        x1 := x;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := x;
+        y2 := y;
+        pbMain.Canvas.Line(x1,y1,x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+    end;
+    k := k + 15;
+  until k > 60;
 end;
 
 function TmainForm.OppKromme(x: Double): Double;
