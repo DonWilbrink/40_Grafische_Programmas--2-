@@ -18,6 +18,8 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    lblGrootte: TLabel;
+    lblCenter: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -29,6 +31,8 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    miSpiralen: TMenuItem;
+    miBloemen4: TMenuItem;
     miBloemen3: TMenuItem;
     miBloemen2: TMenuItem;
     miBloemen: TMenuItem;
@@ -43,6 +47,7 @@ type
     miMoiree: TMenuItem;
     miDriehoek: TMenuItem;
     miZeshoek: TMenuItem;
+    pnlSpiralen: TPanel;
     pnlBloem: TPanel;
     pnlWillekFunc: TPanel;
     pnlContinuFunctie: TPanel;
@@ -51,6 +56,7 @@ type
     pbMain: TPaintBox;
     pnlDiagNHoek: TPanel;
     pnlTop: TPanel;
+    rgSpiralen: TRadioGroup;
     rgFormuleBloem: TRadioGroup;
     rgFormule: TRadioGroup;
     seBreed: TSpinEdit;
@@ -67,8 +73,11 @@ type
     seRechtergrensX: TSpinEdit;
     seBovengrensY: TSpinEdit;
     seOndergrensY: TSpinEdit;
+    seGrootte: TSpinEdit;
+    seCenter: TSpinEdit;
     procedure miBloemen2Click(Sender: TObject);
     procedure miBloemen3Click(Sender: TObject);
+    procedure miBloemen4Click(Sender: TObject);
     procedure miBloemenClick(Sender: TObject);
     procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
@@ -79,6 +88,7 @@ type
     procedure miOppKrommeClick(Sender: TObject);
     procedure miParaboolstelselClick(Sender: TObject);
     procedure miSinuskrommenClick(Sender: TObject);
+    procedure miSpiralenClick(Sender: TObject);
     procedure miWillekeurigeFunctieClick(Sender: TObject);
     procedure miZeshoekClick(Sender: TObject);
   private
@@ -296,6 +306,56 @@ begin
   Teken3(i);
 end;
 
+procedure TmainForm.miBloemen4Click(Sender: TObject);
+var
+  j, k, n, u, v, w, x, x1, x2, y, y1, y2: Integer;
+  c, p, p1, r, rd: Double;
+begin
+  frmClear;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  n := 4;
+  c := 0.25;
+  rd := pi/180;
+  k := 30;
+  while k<v-60 do
+  begin
+    for w := 0 to 360 do
+    begin
+      p := w * rd;
+      r := k * (1 + c * abs(sin(n * p)));
+      x := Trunc(u+r*Cos(p));
+      y := Trunc(v-r*Sin(p));
+      if p=0 then
+      begin
+        x1 := x;
+        y1 := y;
+      end
+      else
+      begin
+        x2 := x;
+        y2 := y;
+        pbMain.Canvas.MoveTo(x1,y1);
+        pbMain.Canvas.LineTo(x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+    end;
+    k := k + 10;
+  end;
+  r := 30;
+  p1 := 180 / n * rd;
+  for j := 1 to n do
+  begin
+    p := j * p1;
+    x1 := Trunc(u+r*Cos(p));
+    y1 := Trunc(v-r*Sin(p));
+    x2 := Trunc(u+r*Cos(p+pi));
+    y2 := Trunc(v-r*Sin(p+pi));
+    pbMain.Canvas.Line(x1,y1,x2,y2);
+  end;
+end;
+
 procedure TmainForm.miMoireeClick(Sender: TObject);
 var
   a, h, j: Integer;
@@ -351,14 +411,16 @@ end;
 
 procedure TmainForm.miOppKrommeClick(Sender: TObject);
 var
-  j, k, v, y, yy: Integer;
+  j, k, v, y: Integer;
   c, x: Double;
 begin
   frmClear;
-  v := pbMain.Width div 2;
-  k := pbMain.Height div 2;
+  v := pbMain.Width div 4;
+  k := pbMain.Height div 4;
   c := 2*pi/pbMain.Height;
+  //c := 2*pi/255;
   for j := 0 to pbMain.Height do
+  //for j := 0 to 255 do
   begin
     x := j*c-pi;
     //yy := Trunc(Cos(x) - (Cos(3*x)/3) + (Cos(5*x)/5) - (Cos(7*x)/7));
@@ -436,6 +498,65 @@ begin
       end;
       j := j + 5;
     until  j>=pbMain.Width;
+  end;
+end;
+
+procedure TmainForm.miSpiralenClick(Sender: TObject);
+var
+  q, u, v, w, x, x1, x2, y, y1, y2: Integer;
+  c, p, r, rd: Double;
+begin
+  frmClear;
+  pnlSpiralen.Visible := True;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  rd := Pi/180;
+  if rgSpiralen.ItemIndex = 0 then
+  begin
+    seCenter.Visible:=False;
+    lblCenter.Visible:=False;
+    seGrootte.Visible:=True;
+    lblGrootte.Visible:=True;
+    c := seGrootte.Value;
+  end
+  else
+  begin
+    seCenter.Visible:=True;
+    lblCenter.Visible:=True;
+    seGrootte.Visible:=False;
+    lblGrootte.Visible:=False;
+    c := 0.1;
+    q := seCenter.Value;
+  end;
+  for w := 0 to 3000 do
+  begin
+    p := w * rd;
+    if rgSpiralen.ItemIndex = 0 then
+    begin
+      //c := c * 2;
+      r := c * p
+    end
+    else
+    begin
+      r := q * Exp(c * p);
+      if r > v then Break;
+    end;
+    x := Trunc(u + r * Cos(p));
+    y := Trunc(v - r * Sin(p));
+    //if x = 0 or x >= pbMain.Width or y = 0 or y >= pbMain.Height then Break;
+    if p = 0 then
+    begin
+      x1 := x;
+      y1 := y;
+    end
+    else
+    begin
+      x2 := x;
+      y2 := y;
+      pbMain.Canvas.Line(x1,y1,x2,y2);
+      x1 := x2;
+      y1 := y2;
+    end;
   end;
 end;
 
@@ -546,6 +667,7 @@ begin
   pnlContinuFunctie.Visible:=False;
   pnlWillekFunc.Visible:=False;
   pnlBloem.Visible:=False;
+  pnlSpiralen.Visible:=False;
 end;
 
 procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
@@ -660,7 +782,7 @@ begin
   u := Trunc(pbMain.Width/2);
   v := Trunc(pbMain.Height/2);
   rd := pi/180;
-  k := -40;
+  k := -60;
   repeat
     for w := 0 to 360 do
     begin
@@ -682,8 +804,8 @@ begin
         y1 := y2;
       end;
     end;
-    k := k + 10;
-  until k > 40;
+    k := k + 15;
+  until k > 60;
 end;
 
 function TmainForm.OppKromme(x: Double): Double;

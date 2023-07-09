@@ -8,6 +8,7 @@ object mainForm: TmainForm
   ClientWidth = 800
   DesignTimePPI = 120
   Menu = MainMenu1
+  Position = poScreenCenter
   object pbMain: TPaintBox
     Left = 0
     Height = 680
@@ -408,6 +409,80 @@ object mainForm: TmainForm
         TabOrder = 0
       end
     end
+    object pnlSpiralen: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 6
+      Visible = False
+      object lblGrootte: TLabel
+        Left = 40
+        Height = 20
+        Top = 24
+        Width = 99
+        Caption = 'Grootte spiraal'
+        ParentColor = False
+      end
+      object rgSpiralen: TRadioGroup
+        Left = 168
+        Height = 75
+        Top = 40
+        Width = 120
+        AutoFill = True
+        Caption = 'Soort spiraal'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 50
+        ClientWidth = 116
+        ItemIndex = 0
+        Items.Strings = (
+          'Normaal'
+          'Logaritmisch'
+        )
+        OnClick = miSpiralenClick
+        TabOrder = 0
+      end
+      object seGrootte: TSpinEdit
+        Left = 40
+        Height = 28
+        Top = 56
+        Width = 63
+        MaxValue = 7
+        MinValue = 1
+        OnChange = miSpiralenClick
+        TabOrder = 1
+        Value = 1
+      end
+      object seCenter: TSpinEdit
+        Left = 40
+        Height = 28
+        Top = 128
+        Width = 63
+        Increment = 5
+        MaxValue = 100
+        MinValue = 5
+        OnChange = miSpiralenClick
+        TabOrder = 2
+        Value = 5
+      end
+      object lblCenter: TLabel
+        Left = 40
+        Height = 20
+        Top = 96
+        Width = 83
+        Caption = 'Straal center'
+        ParentColor = False
+      end
+    end
   end
   object MainMenu1: TMainMenu
     Left = 416
@@ -472,6 +547,14 @@ object mainForm: TmainForm
       object miBloemen3: TMenuItem
         Caption = 'Bloemen3'
         OnClick = miBloemen3Click
+      end
+      object miBloemen4: TMenuItem
+        Caption = 'Bloemen4'
+        OnClick = miBloemen4Click
+      end
+      object miSpiralen: TMenuItem
+        Caption = 'Spiralen'
+        OnClick = miSpiralenClick
       end
     end
   end
