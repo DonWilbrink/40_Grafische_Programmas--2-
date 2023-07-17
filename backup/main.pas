@@ -18,6 +18,20 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
     lblGrootte: TLabel;
     lblCenter: TLabel;
     Label2: TLabel;
@@ -31,6 +45,8 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    miLissajous: TMenuItem;
+    miFuncFPhi: TMenuItem;
     miSpiralen: TMenuItem;
     miBloemen4: TMenuItem;
     miBloemen3: TMenuItem;
@@ -47,6 +63,8 @@ type
     miMoiree: TMenuItem;
     miDriehoek: TMenuItem;
     miZeshoek: TMenuItem;
+    pnlLissajous: TPanel;
+    pnlFuncFPhi: TPanel;
     pnlSpiralen: TPanel;
     pnlBloem: TPanel;
     pnlWillekFunc: TPanel;
@@ -56,6 +74,7 @@ type
     pbMain: TPaintBox;
     pnlDiagNHoek: TPanel;
     pnlTop: TPanel;
+    rgFuncFPhi: TRadioGroup;
     rgSpiralen: TRadioGroup;
     rgFormuleBloem: TRadioGroup;
     rgFormule: TRadioGroup;
@@ -75,6 +94,20 @@ type
     seOndergrensY: TSpinEdit;
     seGrootte: TSpinEdit;
     seCenter: TSpinEdit;
+    seA: TSpinEdit;
+    seB: TSpinEdit;
+    seHP: TSpinEdit;
+    seLP: TSpinEdit;
+    seK1: TSpinEdit;
+    seF1: TSpinEdit;
+    seK2: TSpinEdit;
+    seF2: TSpinEdit;
+    seP1: TSpinEdit;
+    seP3: TSpinEdit;
+    seK3: TSpinEdit;
+    seF3: TSpinEdit;
+    seK4: TSpinEdit;
+    seF4: TSpinEdit;
     procedure miBloemen2Click(Sender: TObject);
     procedure miBloemen3Click(Sender: TObject);
     procedure miBloemen4Click(Sender: TObject);
@@ -82,7 +115,9 @@ type
     procedure miContinuFunctieClick(Sender: TObject);
     procedure miDiagNHoekClick(Sender: TObject);
     procedure miDriehoekClick(Sender: TObject);
+    procedure miFuncFPhiClick(Sender: TObject);
     procedure miIngeschrevenClick(Sender: TObject);
+    procedure miLissajousClick(Sender: TObject);
     procedure miMoireeClick(Sender: TObject);
     procedure miDiagWebClick(Sender: TObject);
     procedure miOppKrommeClick(Sender: TObject);
@@ -144,6 +179,78 @@ begin
   until k >= 35;
 end;
 
+procedure TmainForm.miFuncFPhiClick(Sender: TObject);
+var
+  a, b, cw, ch, fa, fz, i, lp, hp, w, wo, wn, x1, x2, y1, y2: Integer;
+  kx, ky, n, p, r, rd, t, x, y: Double;
+begin
+  frmClear;
+  pnlFuncFPhi.Visible := True;
+  cw := pbMain.Width;
+  ch := pbMain.Height;
+  a := seA.Value;
+  b := seB.Value;
+  lp := seLP.Value;
+  hp := seHP.Value;
+  wo := 0;
+  wn := 720;
+  kx := cw/(b-a);
+  ky := ch/(hp-lp);
+  rd := pi/180;
+  fa := 1;
+  i := rgFuncFPhi.ItemIndex + 1;
+  for w := wo to wn do
+  begin
+    p := w * rd;
+    case i of
+      1:
+        begin
+          t := Sin(3*p/2);
+          n := 1 - 2 * Cos(p);
+        end;
+      2:
+        begin
+          t := 4*Sin(3*p/2+2);
+          n := Cos(p)*(1+(Cos(3*p)/3));
+        end;
+    end;
+    if n=0 then
+      fz := 1
+    else
+    begin
+      r := t/n;
+      x := r * Cos(p);
+      y := r * Sin(p);
+      if (Trunc(x)<a) or (Trunc(x)>b) or (Trunc(y)<lp) or (Trunc(y)>hp) then
+        fz := 1
+      else
+        fz := 0;
+    end;
+      //if r<0 then
+        //fz := 1;
+    if fz=1 then
+      fa := 1
+    else
+    begin
+      if fa=1 then
+      begin
+        x1 := Trunc(kx*(x-a));
+        y1 := Trunc(ky*(hp-y));
+        fa := 0;
+      end
+      else
+      begin
+        x2 := Trunc(kx*(x-a));
+        y2 := Trunc(ky*(hp-y));
+        pbMain.Canvas.MoveTo(x1,y1);
+        pbMain.Canvas.LineTo(x2,y2);
+        x1 := x2;
+        y1 := y2;
+      end;
+    end;
+  end;
+end;
+
 procedure TmainForm.miIngeschrevenClick(Sender: TObject);
 var
   h, j, k, n, n1: Integer;
@@ -176,6 +283,50 @@ begin
     begin
       x[5] := x[1];
       y[5] := y[1];
+    end;
+  end;
+end;
+
+procedure TmainForm.miLissajousClick(Sender: TObject);
+var
+  f1, f2, f3, f4, k1, k2, k3, k4, p1, p3, u, v, w, xx, yy, x1, x2, y1, y2: Integer;
+  rd, t, x, y: Double;
+begin
+  frmClear;
+  pnlLissajous.Visible:=True;
+  f1 := seF1.Value;
+  f2 := seF2.Value;
+  f3 := seF3.Value;
+  f4 := seF4.Value;
+  k1 := seK1.Value;
+  k2 := seK2.Value;
+  k3 := seK3.Value;
+  k4 := seK4.Value;
+  p1 := seP1.Value;
+  p3 := seP3.Value;
+  u := Trunc(pbMain.Width/2);
+  v := Trunc(pbMain.Height/2);
+  rd := pi/180;
+  for w:=0 to 360 do
+  begin
+    t := w * rd;
+    x := k1*Sin(f1*t+p1)+k2*Cos(f2*t);
+    y := k3*Sin(f3*t+p3)+k4*Cos(f4*t);
+    xx := Trunc(u+x);
+    yy := Trunc(v-y);
+    if w=0 then
+    begin
+      x1 := xx;
+      y1 := yy;
+    end
+    else
+    begin
+      x2 := xx;
+      y2 := yy;
+      pbMain.Canvas.MoveTo(x1,y1);
+      pbMain.Canvas.LineTo(x2,y2);
+      x1 := x2;
+      y1 := y2;
     end;
   end;
 end;
@@ -213,7 +364,7 @@ end;
 
 procedure TmainForm.miContinuFunctieClick(Sender: TObject);
 var
-  a, b, c, i, xx, yy, x1, x2, y1, y2: Integer;
+  a, b, i, xx, yy, x1, x2, y1, y2: Integer;
   x, y, hp, lp, dx, kx, ky: Double;
 begin
   frmClear;
@@ -432,8 +583,7 @@ end;
 
 procedure TmainForm.miParaboolstelselClick(Sender: TObject);
 var
-  k, u, v, x, xx, x1, x2, y, y1, y2: Integer;
-  yy: Double;
+  k, u, v, x, xx, x1, x2, y, yy, y1, y2: Integer;
 begin
   frmClear;
   u := Trunc(pbMain.Width/2);
@@ -445,8 +595,8 @@ begin
     x := -110;
     repeat
       xx := Trunc(u+x*4);
-      y:= Trunc(-k*x*x/6400+k);
-      y := v-y;
+      yy := Trunc(-k*x*x/6400+k);
+      y := v-yy;
       if x = -110 then
       begin
         x1 := xx;
@@ -468,7 +618,7 @@ end;
 
 procedure TmainForm.miSinuskrommenClick(Sender: TObject);
 var
-  f, j, k, n, v, x1, x2, y, y1, y2: Integer;
+  j, k, n, v, x1, x2, y, y1, y2: Integer;
   c, p, x: Double;
 begin
   frmClear;
@@ -668,6 +818,8 @@ begin
   pnlWillekFunc.Visible:=False;
   pnlBloem.Visible:=False;
   pnlSpiralen.Visible:=False;
+  pnlFuncFPhi.Visible:=False;
+  pnlLissajous.Visible:=False;
 end;
 
 procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
