@@ -128,7 +128,7 @@ type
     procedure miZeshoekClick(Sender: TObject);
   private
     procedure frmClear;
-    procedure Formule(i: Integer; x: Double; var y: Double);
+    function Formule(i: Integer; x: Double): Double;
     function FormuleBloem(I: Integer; p: Double): Double;
     function FormuleBloem2(i: Integer; k: Integer; p: Double): Double;
     procedure Teken(I: Integer);
@@ -372,21 +372,24 @@ begin
   a := seLinker.Value;
   b := seRechter.Value;
   if a>b then Swap(a,b);
-  hp := -100000;
-  lp := 100000;
-  dx := (b-a)/256;
-  x := a;
-  i := rgFormule.ItemIndex;
-  repeat
-    Formule(i,x,y);
-    if y>hp then hp := y;
-    if y<lp then lp := y;
-    x := x+dx;
-  until x=b;
-  Label8.Caption := 'Grootste y-waarde: ' + hp.ToString;
-  Label9.Caption := 'Kleinste y-waarde: ' + lp.ToString;
-  seGrootsteY.Value := Trunc(hp)+1;
-  seKleinsteY.Value := Trunc(lp)-1;
+  //if (Sender = miContinuFunctie) or (Sender = seLinker) or (Sender = seRechter) then
+  //begin
+    hp := -100000;
+    lp := 100000;
+    dx := (b-a)/256;
+    x := a;
+    i := rgFormule.ItemIndex;
+    repeat
+      y := Formule(i,x);
+      if y>hp then hp := y;
+      if y<lp then lp := y;
+      x := x+dx;
+    until x=b;
+    Label8.Caption := 'Grootste y-waarde: ' + hp.ToString;
+    Label9.Caption := 'Kleinste y-waarde: ' + lp.ToString;
+    seGrootsteY.Value := Trunc(hp)+1;
+    seKleinsteY.Value := Trunc(lp)-1;
+  //end;
   hp := seGrootsteY.Value;
   lp := seKleinsteY.Value;
   if a=b then b := b+1;
@@ -394,7 +397,7 @@ begin
   ky := (pbMain.Height)/(hp-lp);
   x := a;
   repeat
-    Formule(i,x,y);
+    y := Formule(i,x);
     xx := Trunc(kx*(x-a));
     yy := Trunc(ky*(hp-y));
     if x=a then
@@ -822,14 +825,14 @@ begin
   pnlLissajous.Visible:=False;
 end;
 
-procedure TmainForm.Formule(i: Integer; x: Double; var y: Double);
+function TmainForm.Formule(i: Integer; x: Double): Double;
 begin
   case i of
-    0:  y := Exp(-0.1*x)*Cos(x);
-    1:  y := Sin(x);
-    2:  y := x*x;
-    3:  y := Exp(x);
-    4:  y := x*x*x-2*x*x-x
+    0:  Result := Exp(-0.1*x)*Cos(x);
+    1:  Result := Sin(x);
+    2:  Result := x*x;
+    3:  Result := Exp(x);
+    4:  Result := x*x*x-2*x*x-x
   end;
 end;
 
