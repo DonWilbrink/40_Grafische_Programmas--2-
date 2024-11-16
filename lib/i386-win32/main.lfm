@@ -1,0 +1,875 @@
+object mainForm: TmainForm
+  Left = 342
+  Height = 850
+  Top = 31
+  Width = 800
+  Caption = '40 grafische algoritmes'
+  ClientHeight = 850
+  ClientWidth = 800
+  DesignTimePPI = 120
+  Menu = MainMenu1
+  Position = poScreenCenter
+  object pbMain: TPaintBox
+    Left = 0
+    Height = 680
+    Top = 170
+    Width = 800
+    Align = alClient
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Height = 170
+    Top = 0
+    Width = 800
+    Align = alTop
+    ClientHeight = 170
+    ClientWidth = 800
+    Color = clSilver
+    ParentColor = False
+    TabOrder = 0
+    object pnlDiagNHoek: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      Color = clMoneyGreen
+      ParentColor = False
+      TabOrder = 0
+      Visible = False
+      object seBreed: TSpinEdit
+        Left = 20
+        Height = 28
+        Top = 40
+        Width = 70
+        Increment = 10
+        MaxValue = 300
+        MinValue = 50
+        OnChange = miDiagNHoekClick
+        TabOrder = 0
+        Value = 50
+      end
+      object seHoog: TSpinEdit
+        Left = 20
+        Height = 28
+        Top = 90
+        Width = 70
+        Increment = 10
+        MaxValue = 200
+        MinValue = 50
+        OnChange = miDiagNHoekClick
+        TabOrder = 1
+        Value = 50
+      end
+      object seHoek: TSpinEdit
+        Left = 128
+        Height = 28
+        Top = 40
+        Width = 70
+        MaxValue = 25
+        MinValue = 4
+        OnChange = miDiagNHoekClick
+        TabOrder = 2
+        Value = 4
+      end
+      object Label2: TLabel
+        Left = 128
+        Height = 20
+        Top = 8
+        Width = 128
+        Caption = 'Aantal hoekpunten:'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 20
+        Height = 20
+        Top = 8
+        Width = 101
+        Caption = 'Grootte figuur: '
+        ParentColor = False
+      end
+    end
+    object pnlDiagWeb: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      Color = clSkyBlue
+      ParentColor = False
+      TabOrder = 1
+      Visible = False
+      object Label3: TLabel
+        Left = 16
+        Height = 20
+        Top = 16
+        Width = 141
+        Caption = 'Aantal punten boven:'
+        ParentColor = False
+      end
+      object sePunt: TSpinEdit
+        Left = 16
+        Height = 28
+        Top = 56
+        Width = 63
+        MaxValue = 20
+        MinValue = 8
+        OnChange = miDiagWebClick
+        TabOrder = 0
+        Value = 8
+      end
+    end
+    object pnlIngeschreven: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 2
+      Visible = False
+      object Label4: TLabel
+        Left = 20
+        Height = 20
+        Top = 16
+        Width = 127
+        Caption = 'Verdraaing 1<k<25'
+        ParentColor = False
+      end
+      object seK: TSpinEdit
+        Left = 20
+        Height = 28
+        Top = 56
+        Width = 62
+        MaxValue = 25
+        MinValue = 1
+        OnChange = miIngeschrevenClick
+        TabOrder = 0
+        Value = 1
+      end
+      object seN: TSpinEdit
+        Left = 152
+        Height = 28
+        Top = 56
+        Width = 63
+        MaxValue = 50
+        MinValue = 10
+        OnChange = miIngeschrevenClick
+        TabOrder = 1
+        Value = 10
+      end
+      object Label5: TLabel
+        Left = 152
+        Height = 20
+        Top = 16
+        Width = 181
+        Caption = 'Aantal Vierkanten 10<n<50'
+        ParentColor = False
+      end
+    end
+    object pnlWillekFunc: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 4
+      Visible = False
+      object Label10: TLabel
+        Left = 27
+        Height = 20
+        Top = 14
+        Width = 120
+        Caption = 'Linkergrens voor x'
+        ParentColor = False
+      end
+      object Label11: TLabel
+        Left = 27
+        Height = 20
+        Top = 81
+        Width = 131
+        Caption = 'Rechtergrens voor x'
+        ParentColor = False
+      end
+      object Label12: TLabel
+        Left = 211
+        Height = 20
+        Top = 14
+        Width = 122
+        Caption = 'Bovengrens voor y'
+        ParentColor = False
+      end
+      object Label13: TLabel
+        Left = 211
+        Height = 20
+        Top = 81
+        Width = 122
+        Caption = 'Ondergrens voor y'
+        ParentColor = False
+      end
+      object seLinkergrensX: TSpinEdit
+        Left = 27
+        Height = 28
+        Top = 47
+        Width = 63
+        MinValue = -5
+        OnChange = miWillekeurigeFunctieClick
+        TabOrder = 0
+        Value = -5
+      end
+      object seRechtergrensX: TSpinEdit
+        Left = 27
+        Height = 28
+        Top = 118
+        Width = 63
+        MaxValue = 5
+        OnChange = miWillekeurigeFunctieClick
+        TabOrder = 1
+        Value = 5
+      end
+      object seBovengrensY: TSpinEdit
+        Left = 211
+        Height = 28
+        Top = 47
+        Width = 63
+        MaxValue = 10
+        OnChange = miWillekeurigeFunctieClick
+        TabOrder = 2
+        Value = 10
+      end
+      object seOndergrensY: TSpinEdit
+        Left = 211
+        Height = 28
+        Top = 120
+        Width = 63
+        MinValue = -10
+        OnChange = miWillekeurigeFunctieClick
+        TabOrder = 3
+        Value = -10
+      end
+    end
+    object pnlBloem: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 5
+      Visible = False
+      object rgFormuleBloem: TRadioGroup
+        Left = 32
+        Height = 131
+        Top = 8
+        Width = 544
+        AutoFill = True
+        Caption = 'Formules'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 106
+        ClientWidth = 540
+        Columns = 2
+        Items.Strings = (
+          '1 = Cos(4 * P)'
+          '2 = Cos(5 * P)'
+          '3 = Cos(4 * Sin(5 * P))'
+          '4 = Sin(4 * Cos(5 * P))'
+          '5 = Cos(3 * Tan(5 * P))'
+          '6 = Sin(3 * Tan(5 * P))'
+          '7 = Sin(4 * P)'
+          '8 = Sin(5 * P)'
+          '9 = Sin(5 * Cos(2 * Sin(3 * Cos(4 * P))))'
+        )
+        OnSelectionChanged = miBloemenClick
+        TabOrder = 0
+      end
+    end
+    object pnlSpiralen: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 6
+      Visible = False
+      object lblGrootte: TLabel
+        Left = 40
+        Height = 20
+        Top = 24
+        Width = 99
+        Caption = 'Grootte spiraal'
+        ParentColor = False
+      end
+      object rgSpiralen: TRadioGroup
+        Left = 168
+        Height = 75
+        Top = 40
+        Width = 120
+        AutoFill = True
+        Caption = 'Soort spiraal'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 50
+        ClientWidth = 116
+        ItemIndex = 0
+        Items.Strings = (
+          'Normaal'
+          'Logaritmisch'
+        )
+        OnClick = miSpiralenClick
+        TabOrder = 0
+      end
+      object seGrootte: TSpinEdit
+        Left = 40
+        Height = 28
+        Top = 56
+        Width = 63
+        MaxValue = 7
+        MinValue = 1
+        OnChange = miSpiralenClick
+        TabOrder = 1
+        Value = 1
+      end
+      object seCenter: TSpinEdit
+        Left = 40
+        Height = 28
+        Top = 128
+        Width = 63
+        Increment = 5
+        MaxValue = 100
+        MinValue = 5
+        OnChange = miSpiralenClick
+        TabOrder = 2
+        Value = 5
+      end
+      object lblCenter: TLabel
+        Left = 40
+        Height = 20
+        Top = 96
+        Width = 83
+        Caption = 'Straal center'
+        ParentColor = False
+      end
+    end
+    object pnlFuncFPhi: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 7
+      Visible = False
+      object Label14: TLabel
+        Left = 51
+        Height = 20
+        Top = 16
+        Width = 120
+        Caption = 'Linkergrens voor x'
+        ParentColor = False
+      end
+      object Label15: TLabel
+        Left = 51
+        Height = 20
+        Top = 95
+        Width = 131
+        Caption = 'Rechtergrens voor x'
+        ParentColor = False
+      end
+      object Label16: TLabel
+        Left = 232
+        Height = 20
+        Top = 16
+        Width = 122
+        Caption = 'Bovengrens voor y'
+        ParentColor = False
+      end
+      object Label17: TLabel
+        Left = 232
+        Height = 20
+        Top = 95
+        Width = 122
+        Caption = 'Ondergrens voor y'
+        ParentColor = False
+      end
+      object seA: TSpinEdit
+        Left = 51
+        Height = 28
+        Top = 47
+        Width = 63
+        MaxValue = -1
+        MinValue = -10
+        OnChange = miFuncFPhiClick
+        TabOrder = 0
+        Value = -2
+      end
+      object seB: TSpinEdit
+        Left = 51
+        Height = 28
+        Top = 128
+        Width = 63
+        MaxValue = 10
+        MinValue = 1
+        OnChange = miFuncFPhiClick
+        TabOrder = 1
+        Value = 2
+      end
+      object seHP: TSpinEdit
+        Left = 232
+        Height = 28
+        Top = 48
+        Width = 63
+        MaxValue = 10
+        MinValue = 1
+        OnChange = miFuncFPhiClick
+        TabOrder = 2
+        Value = 2
+      end
+      object seLP: TSpinEdit
+        Left = 232
+        Height = 28
+        Top = 128
+        Width = 63
+        MaxValue = -1
+        MinValue = -10
+        OnChange = miFuncFPhiClick
+        TabOrder = 3
+        Value = -2
+      end
+      object rgFuncFPhi: TRadioGroup
+        Left = 400
+        Height = 95
+        Top = 16
+        Width = 320
+        AutoFill = True
+        Caption = 'Formules'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 70
+        ClientWidth = 316
+        ItemIndex = 0
+        Items.Strings = (
+          '(Sin(3*p/2))/(1-2*Cos(p))'
+          '(4*Sin(1.5*p+2)/(Cos(p)*(1+(Cos(3*p))/3) '
+        )
+        OnClick = miFuncFPhiClick
+        TabOrder = 4
+      end
+    end
+    object pnlContinuFunctie: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      Color = clGradientActiveCaption
+      ParentColor = False
+      TabOrder = 3
+      Visible = False
+      object seLinker: TSpinEdit
+        Left = 32
+        Height = 28
+        Top = 48
+        Width = 63
+        MaxValue = 20
+        MinValue = -30
+        OnChange = miContinuFunctieClick
+        TabOrder = 0
+        Value = -20
+      end
+      object seRechter: TSpinEdit
+        Left = 32
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = 30
+        MinValue = -20
+        OnChange = miContinuFunctieClick
+        TabOrder = 1
+        Value = 20
+      end
+      object Label6: TLabel
+        Left = 32
+        Height = 20
+        Top = 10
+        Width = 135
+        Caption = 'Linker interval grens:'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 32
+        Height = 20
+        Top = 91
+        Width = 146
+        Caption = 'Rechter interval grens:'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 248
+        Height = 20
+        Top = 10
+        Width = 124
+        Caption = 'Grootste Y-waarde'
+        ParentColor = False
+      end
+      object Label9: TLabel
+        Left = 248
+        Height = 20
+        Top = 96
+        Width = 119
+        Caption = 'Kleinste Y-waarde'
+        ParentColor = False
+      end
+      object seGrootsteY: TSpinEdit
+        Left = 248
+        Height = 28
+        Top = 48
+        Width = 63
+        MaxValue = 20
+        MinValue = 1
+        OnChange = miContinuFunctieClick
+        TabOrder = 2
+        Value = 1
+      end
+      object seKleinsteY: TSpinEdit
+        Left = 248
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = -1
+        MinValue = -20
+        OnChange = miContinuFunctieClick
+        TabOrder = 3
+        Value = -1
+      end
+      object rgFormule: TRadioGroup
+        Left = 544
+        Height = 131
+        Top = 10
+        Width = 231
+        AutoFill = True
+        Caption = 'Formule'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 106
+        ClientWidth = 227
+        ItemIndex = 0
+        Items.Strings = (
+          '1 : y=Exp(-0.1*x)*Cos(x)'
+          '2 : y=Sin(x)'
+          '3 : y=x*x'
+          '4 : y=Exp(x)'
+          '5 : y=x*x*x-2*x*x-x'
+        )
+        OnClick = miContinuFunctieClick
+        TabOrder = 4
+      end
+    end
+    object pnlLissajous: TPanel
+      Left = 1
+      Height = 168
+      Top = 1
+      Width = 798
+      Align = alClient
+      ClientHeight = 168
+      ClientWidth = 798
+      TabOrder = 8
+      Visible = False
+      object Label18: TLabel
+        Left = 27
+        Height = 20
+        Top = 14
+        Width = 17
+        Caption = 'K1'
+        ParentColor = False
+      end
+      object seK1: TSpinEdit
+        Left = 27
+        Height = 28
+        Top = 47
+        Width = 63
+        Increment = 10
+        MaxValue = 400
+        OnChange = miLissajousClick
+        TabOrder = 0
+        Value = 100
+      end
+      object Label19: TLabel
+        Left = 27
+        Height = 20
+        Top = 90
+        Width = 15
+        Caption = 'F1'
+        ParentColor = False
+      end
+      object Label20: TLabel
+        Left = 144
+        Height = 20
+        Top = 14
+        Width = 17
+        Caption = 'K2'
+        ParentColor = False
+      end
+      object Label21: TLabel
+        Left = 144
+        Height = 20
+        Top = 90
+        Width = 15
+        Caption = 'F2'
+        ParentColor = False
+      end
+      object Label22: TLabel
+        Left = 264
+        Height = 20
+        Top = 14
+        Width = 16
+        Caption = 'P1'
+        ParentColor = False
+      end
+      object seF1: TSpinEdit
+        Left = 27
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = 100
+        OnChange = miLissajousClick
+        TabOrder = 1
+        Value = 16
+      end
+      object seK2: TSpinEdit
+        Left = 144
+        Height = 28
+        Top = 48
+        Width = 63
+        Increment = 10
+        MaxValue = 400
+        OnChange = miLissajousClick
+        TabOrder = 2
+      end
+      object seF2: TSpinEdit
+        Left = 144
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = 100
+        OnChange = miLissajousClick
+        TabOrder = 3
+      end
+      object seP1: TSpinEdit
+        Left = 264
+        Height = 28
+        Top = 48
+        Width = 63
+        Increment = 5
+        MaxValue = 100
+        OnChange = miLissajousClick
+        TabOrder = 4
+      end
+      object seP3: TSpinEdit
+        Left = 264
+        Height = 28
+        Top = 120
+        Width = 63
+        Increment = 5
+        OnChange = miLissajousClick
+        TabOrder = 5
+        Value = 35
+      end
+      object seK3: TSpinEdit
+        Left = 376
+        Height = 28
+        Top = 48
+        Width = 63
+        Increment = 10
+        MaxValue = 400
+        OnChange = miLissajousClick
+        TabOrder = 6
+        Value = 100
+      end
+      object seF3: TSpinEdit
+        Left = 376
+        Height = 28
+        Top = 118
+        Width = 63
+        MaxValue = 100
+        OnChange = miLissajousClick
+        TabOrder = 7
+        Value = 17
+      end
+      object Label23: TLabel
+        Left = 264
+        Height = 20
+        Top = 91
+        Width = 16
+        Caption = 'P3'
+        ParentColor = False
+      end
+      object Label24: TLabel
+        Left = 376
+        Height = 20
+        Top = 14
+        Width = 17
+        Caption = 'K3'
+        ParentColor = False
+      end
+      object Label25: TLabel
+        Left = 376
+        Height = 20
+        Top = 91
+        Width = 15
+        Caption = 'F3'
+        ParentColor = False
+      end
+      object Label26: TLabel
+        Left = 480
+        Height = 20
+        Top = 17
+        Width = 17
+        Caption = 'K4'
+        ParentColor = False
+      end
+      object Label27: TLabel
+        Left = 480
+        Height = 20
+        Top = 88
+        Width = 15
+        Caption = 'F4'
+        ParentColor = False
+      end
+      object seK4: TSpinEdit
+        Left = 480
+        Height = 28
+        Top = 47
+        Width = 63
+        Increment = 10
+        MaxValue = 400
+        OnChange = miLissajousClick
+        TabOrder = 8
+      end
+      object seF4: TSpinEdit
+        Left = 480
+        Height = 28
+        Top = 120
+        Width = 63
+        MaxValue = 100
+        OnChange = miLissajousClick
+        TabOrder = 9
+      end
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 696
+    Top = 48
+    object MenuItem1: TMenuItem
+      Caption = 'Programma 1-10'
+      object miDiagWeb: TMenuItem
+        Caption = 'Diagonaal web'
+        OnClick = miDiagWebClick
+      end
+      object miMoiree: TMenuItem
+        Caption = 'Moiree effect'
+        OnClick = miMoireeClick
+      end
+      object miDriehoek: TMenuItem
+        Caption = 'Driehoeken'
+        OnClick = miDriehoekClick
+      end
+      object miZeshoek: TMenuItem
+        Caption = 'Zeshoeken'
+        OnClick = miZeshoekClick
+      end
+      object miDiagNHoek: TMenuItem
+        Caption = 'Diagonalen N-hoek'
+        OnClick = miDiagNHoekClick
+      end
+      object miIngeschreven: TMenuItem
+        Caption = 'Ingeschreven vierkanten'
+        OnClick = miIngeschrevenClick
+      end
+      object miContinuFunctie: TMenuItem
+        Caption = 'Grafiek van een continu functie'
+        OnClick = miContinuFunctieClick
+      end
+      object miSinuskrommen: TMenuItem
+        Caption = 'Sinuskrommen'
+        OnClick = miSinuskrommenClick
+      end
+      object miParaboolstelsel: TMenuItem
+        Caption = 'Paraboolstelsel'
+        OnClick = miParaboolstelselClick
+      end
+      object miOppKromme: TMenuItem
+        Caption = 'Oppervlakte onder kromme'
+        OnClick = miOppKrommeClick
+      end
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Programma 11-20'
+      object miWillekeurigeFunctie: TMenuItem
+        Caption = 'Willekeurige Functie'
+        OnClick = miWillekeurigeFunctieClick
+      end
+      object miBloemen: TMenuItem
+        Caption = 'Bloemen'
+        OnClick = miBloemenClick
+      end
+      object miBloemen2: TMenuItem
+        Caption = 'Bloemen2'
+        OnClick = miBloemen2Click
+      end
+      object miBloemen3: TMenuItem
+        Caption = 'Bloemen3'
+        OnClick = miBloemen3Click
+      end
+      object miBloemen4: TMenuItem
+        Caption = 'Bloemen4'
+        OnClick = miBloemen4Click
+      end
+      object miSpiralen: TMenuItem
+        Caption = 'Spiralen'
+        OnClick = miSpiralenClick
+      end
+      object miFuncFPhi: TMenuItem
+        Caption = 'Grafiek van de functie R=f(Phi)'
+        OnClick = miFuncFPhiClick
+      end
+      object miLissajous: TMenuItem
+        Caption = 'Lissajous figuur'
+        OnClick = miLissajousClick
+      end
+    end
+  end
+end
